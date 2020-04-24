@@ -32,7 +32,7 @@ begin
 	tb_rst : PROCESS
 	BEGIN
 		rst <= '1';
-		wait for 600 ns;
+		wait for 100 ns;
 		rst <= '0';
 		wait;
 	END PROCESS tb_rst;

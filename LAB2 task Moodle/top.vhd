@@ -20,7 +20,8 @@ entity top is
 end top;
 ------------- complete the top Architecture code --------------
 architecture arc_sys of top is
-	SIGNAL count: std_logic_vector (n-1 downto 0);
+	SIGNAL dinLast: std_logic_vector (n-1 downto 0);
+	SIGNAL count: integer range 0 to n-1;
 	SIGNAL rise: STD_LOGIC;
 
 	--adder:
@@ -33,17 +34,17 @@ BEGIN
   PROCESS (clk, rst) --sequntial
   BEGIN
 	IF (rst='1') THEN
-		din <= (others => '0');
+		dinLast <= (others => '0');
 	ELSIF (clk'EVENT and clk='1') THEN
 		IF (ena = '1') THEN
-			din <= din;
+			dinLast <= din;
 		END IF;
    END IF;
   END PROCESS;
 				
 	condInt<=std_logic_vector(to_unsigned(cond,n));
-	L0: Adder generic map(n) port map(din,condInt,'1',sum,carry); --Adder: din + cond + 1
-	PROCESS (din,cond) --combinatorial 
+	L0: Adder generic map(n) port map(dinLast,condInt,'1',sum,carry); --Adder: dinLast + cond + 1
+	PROCESS (din) --combinatorial
 	BEGIN		
 		rise <='0';
 		IF (carry = '0' and sum = din) THEN
@@ -63,12 +64,12 @@ BEGIN
 	PROCESS (clk, rst)  --sequntial
 	  BEGIN
 		IF (rst='1') THEN
-			count <= (others => '0');
+			count <= 0;
 		ELSIF (clk'EVENT and clk='1') THEN
 			IF (ena = '1') THEN
-				IF (rise ='0')
-					count<= '0';
-				ELSIF(count < m+2) 	THEN
+				IF (rise ='0') THEN
+					count<= 0;
+				ELSIF(count <= m) 	THEN
 					count <=count + 1;
 				ELSE 
 					count <= count;
