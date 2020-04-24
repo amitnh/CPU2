@@ -55,7 +55,7 @@ BEGIN
 	PROCESS  --combinatorial
 	BEGIN
 		detector<='0';
-		IF (count = m+1) THEN
+		IF (count = m + 1) THEN
 			detector<='1';
 		END IF;
 	END PROCESS;
@@ -64,11 +64,11 @@ BEGIN
 	PROCESS (clk, rst)  --sequntial
 	  BEGIN
 		IF (rst='1') THEN
-			count <= 0;
+			count <= (OTHERS => '0');
 		ELSIF (clk'EVENT and clk='1') THEN
 			IF (ena = '1') THEN
-				IF (rise ='0')
-					count<= 0;
+				IF (rise ='0') THEN
+					count<= (OTHERS => '0');
 				ELSIF(count <= m) 	THEN
 					count <=count + 1;
 				ELSE 
