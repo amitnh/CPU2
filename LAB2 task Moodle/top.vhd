@@ -21,8 +21,8 @@ end top;
 ------------- complete the top Architecture code --------------
 architecture arc_sys of top is
 	SIGNAL dinLast: std_logic_vector (n-1 downto 0);
-	SIGNAL count: std_logic_vector (n-1 downto 0);
-	SIGNAL c: std_logic_vector (n-1 downto 0);
+	SIGNAL count: std_logic_vector (k downto 0);
+	SIGNAL c: std_logic_vector (k downto 0);
 	SIGNAL rise: STD_LOGIC;
 
 	--adder:
@@ -45,7 +45,7 @@ BEGIN
 				
 	condInt<=std_logic_vector(to_unsigned(cond,n));
 	L0: Adder generic map(n) port map(dinLast,condInt,'1',sum,carry); --Adder: dinLast + cond + 1
-	PROCESS (din) --combinatorial
+	PROCESS (sum) --combinatorial
 	BEGIN		
 		rise <='0';
 		IF (carry = '0' and sum = din) THEN
@@ -56,7 +56,7 @@ BEGIN
 	PROCESS (count) --combinatorial
 	BEGIN		
 		detector<='0';
-				IF (count = m + 1) THEN
+				IF (count = m+1) THEN
 					detector<='1';
 				END IF;
 	end PROCESS;
@@ -71,7 +71,7 @@ BEGIN
 	
 				IF (rise ='0') THEN
 					c <= (others=>'0');
-				ELSIF(c <= m) 	THEN
+				ELSIF(c < m) 	THEN
 					c <=c + 1;
 				ELSE 
 					c <= c;
