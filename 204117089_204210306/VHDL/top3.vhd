@@ -31,7 +31,7 @@ BEGIN
 	
 				IF (rise ='0') THEN
 					c <= (others=>'0');
-				ELSIF(c < m  ) 	THEN
+				ELSIF(c < m+1  ) 	THEN
 					c <=c + 1;
 				ELSE 
 					c <= c;

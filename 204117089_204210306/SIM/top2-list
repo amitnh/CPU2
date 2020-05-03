@@ -1,0 +1,20 @@
+onerror {resume}
+add list -width 14 /tb_top2/din
+add list /tb_top2/dinlast
+add list /tb_top2/cond
+add list /tb_top2/rise
+add list /tb_top2/sum
+add list /tb_top2/carry
+add list /tb_top2/din
+add list /tb_top2/dinlast
+add list /tb_top2/cond
+add list /tb_top2/rise
+add list /tb_top2/sum
+add list /tb_top2/carry
+configure list -usestrobe 0
+configure list -strobestart {0 ps} -strobeperiod {0 ps}
+configure list -usesignaltrigger 1
+configure list -delta collapse
+configure list -signalnamewidth 0
+configure list -datasetprefix 0
+configure list -namelimit 5

@@ -1,0 +1,13 @@
+onerror {resume}
+add list -width 14 /tb_top1/rst
+add list /tb_top1/ena
+add list /tb_top1/clk
+add list /tb_top1/din
+add list /tb_top1/dinlast
+configure list -usestrobe 0
+configure list -strobestart {0 ps} -strobeperiod {0 ps}
+configure list -usesignaltrigger 1
+configure list -delta collapse
+configure list -signalnamewidth 0
+configure list -datasetprefix 0
+configure list -namelimit 5
