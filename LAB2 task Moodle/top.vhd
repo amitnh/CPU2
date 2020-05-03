@@ -45,7 +45,7 @@ BEGIN
 				
 	condInt<=std_logic_vector(to_unsigned(cond,n));
 	L0: Adder generic map(n) port map(dinLast,condInt,'1',sum,carry); --Adder: dinLast + cond + 1
-	PROCESS (sum) --combinatorial
+	PROCESS (din) --combinatorial
 	BEGIN		
 		rise <='0';
 		IF (carry = '0' and sum = din) THEN
@@ -71,7 +71,7 @@ BEGIN
 	
 				IF (rise ='0') THEN
 					c <= (others=>'0');
-				ELSIF(c < m) 	THEN
+				ELSIF(c < m+1) 	THEN
 					c <=c + 1;
 				ELSE 
 					c <= c;
@@ -85,6 +85,9 @@ BEGIN
 	
 	
 end arc_sys;
+
+
+--configure list -delta collapse
 
 
 
